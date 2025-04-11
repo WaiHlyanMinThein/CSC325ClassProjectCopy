@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "post-update": "echo \"codesandbox preview only, need an update\" && pnpm update --latest"
+    "post-update": "echo \"codesandbox preview only, need an update\" && pnpm update --latest",
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/cache": "latest",
@@ -21,11 +22,18 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "latest",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "latest",
     "eslint-config-next": "^15.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-node": "^10.9.2",
     "typescript": "latest"
   }
 }
