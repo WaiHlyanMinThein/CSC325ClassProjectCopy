@@ -2,7 +2,10 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on PR
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - main
 permissions:
   checks: write
   contents: read
@@ -13,10 +16,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: " npm install && npm run build && npm run export"
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+      # Install Vale for documentation validation
+      - name: Install Vale
+        run: |
+          curl -sSL https://github.com/errata-ai/vale/releases/download/v2.11.0/vale_2.11.0_Linux_x86_64.tar.gz | tar -xz
+          sudo mv vale /usr/local/bin/
+      # Run Vale for documentation validation
+      - name: Run Vale for documentation validation
+        run: |
+          vale --config=.vale.ini .
+      # Run Jest tests
+      - name: Run Jest tests
+        run: npm test
+      # Build and export static website
+      - name: Build and export static website
+        run: |
+          npm run build
+          npm run export
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{
-            secrets.FIREBASE_SERVICE_ACCOUNT_HOSTING_A_STATIC_WEBSITE_9EB79 }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HOSTING_A_STATIC_WEBSITE_9EB79 }}
           projectId: hosting-a-static-website-9eb79
+
