@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Install dependencies
+      # Install dependencies in the website directory
       - name: Install dependencies
-        run: npm install
-      # Build and export static website
+        run: cd website && npm install
+      # Build and export static website in the website directory
       - name: Build and export static website
         run: |
+          cd website
           npm run build
           npm run export
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -25,3 +26,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HOSTING_A_STATIC_WEBSITE_9EB79 }}
           channelId: live
           projectId: hosting-a-static-website-9eb79
+
