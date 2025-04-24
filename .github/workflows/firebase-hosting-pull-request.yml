@@ -18,7 +18,9 @@ jobs:
       - uses: actions/checkout@v4
       # Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd website
+          npm install
       # Install Vale for documentation validation
       - name: Install Vale
         run: |
@@ -27,13 +29,16 @@ jobs:
       # Run Vale for documentation validation
       - name: Run Vale for documentation validation
         run: |
-          vale --config=.vale.ini .
+          vale --config=website/.vale.ini website
       # Run Jest tests
       - name: Run Jest tests
-        run: npm test
+        run: |
+          cd website
+          npm test
       # Build and export static website
       - name: Build and export static website
         run: |
+          cd website
           npm run build
           npm run export
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -41,4 +46,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HOSTING_A_STATIC_WEBSITE_9EB79 }}
           projectId: hosting-a-static-website-9eb79
+
 
