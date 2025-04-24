@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "post-update": "echo \"codesandbox preview only, need an update\" && pnpm update --latest",
-    "test": "jest"
+    "test": "jest",
+    "export": "next export"
   },
   "dependencies": {
     "20": "^3.1.9",
