@@ -19,7 +19,6 @@ jobs:
         run: |
           cd website
           npm run build
-          npm run export
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
